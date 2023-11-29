@@ -1,0 +1,13 @@
+name: HapyAuction
+version: '${version}'
+main: ru.swenly.hapyauction.HapyAuction
+api-version: 1.16
+authors: [ Swenly ]
+description: Auction plugin
+commands:
+  ah:
+    aliases:
+      - auc
+      - auction
+      - аукцион
+    description: Auction command

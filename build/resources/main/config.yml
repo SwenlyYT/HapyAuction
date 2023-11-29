@@ -1,0 +1,103 @@
+min_price: 1 # Минимальная цена продажи предмета
+max_price: 1000000 # Максимальная цена продажи предмета
+max_price_message: "&cОшибка! Вы выставили цену больше чем %max_price%" # Сообщение, если при продаже игрок выставил цену больше, чем доступно
+min_price_message: "&cОшибка! Вы выставили цену меньше чем %min_price%" # Сообщение, если при продаже игрок выставил цену меньше, чем доступно
+max_slots_message: "&cОшибка! Вы достигли максимального значения кол-во слотов (%max_slots%)" # Сообщение, если при продаже слоты в permission равны слотам в аукционе самого игрока
+not_enough_message: "&cОшибка! У вас нехватает средств!" # Сообщение, если не хватает денег для покупки предмета
+item_already_bought_message: "&cОшибка! Этот предмет уже купили!" # Сообщение, если не хватает денег для покупки предмета
+bought_message: "&aУспешно! &eВы купили &6%item_name%&e с количеством &6%item_amount%&e за &6%item_price%&e монет у игрока %item_seller%!" # Сообщение, если ты купил предмет
+other_bought_message: "&aУспешно! &eУ вас купил игрок с ником &6%item_buyer%&e предмет &6%item_name%&e с количеством &6%item_amount%&e за &6%item_price%&e монет!" # Сообщение, если игрок купил предмет у тебя
+sold_message: "&aУспешно! &eВы выставили на продажу &6%item_name%&e с количеством &6%item_amount%&e за &6%item_price%&e монет!" # Сообщение игроку если он выставил на продажу предмет
+canceled_message: "&aУспешно! &eВы отменили &6%item_name%&e с количеством &6%item_amount%&e за &6%item_price%&e монет!" # Сообщение игроку если он отменил предмет, который выставлял
+expired_message: "&aУспешно! &eВы забрали &6%item_name%&e с количеством &6%item_amount%&e за &6%item_price%&e монет!" # Сообщение игроку если он отменил предмет, который выставлял
+already_bought_message: "&cОшибка! Предмет уже куплен!" # Сообщение, если игрок находится в меню подтверждения покупки, а предмет уже куплен
+item_info: # Информация о предмете в аукционе
+  - "§r"
+  - "§8------------------"
+  - "§r§eЦена: §6%item_price%"
+  - "§r§eЦена за штуку: §6%one_item_price%"
+  - "§r§eПродавец: §6%item_seller%"
+  - "§r§eИстекает в: §6%item_expire_date%"
+  - "§8------------------"
+
+expired_item_info: # Информация об истекшем предмете в аукционе
+  - "§r"
+  - "§8------------------"
+  - "§r§eЦена: §6%item_price%"
+  - "§r§eЦена за штуку: §6%one_item_price%"
+  - "§r§eПродавец: §6%item_seller%"
+  - "§r§eИстек в: §6%item_expire_date%"
+  - "§8------------------"
+
+categories:
+  armor:
+    - LEATHER_HELMET
+    - LEATHER_CHESTPLATE
+    - LEATHER_LEGGINGS
+    - LEATHER_BOOTS
+    - GOLDEN_HELMET
+    - GOLDEN_CHESTPLATE
+    - GOLDEN_LEGGINGS
+    - GOLDEN_BOOTS
+    - DIAMOND_HELMET
+    - DIAMOND_CHESTPLATE
+    - DIAMOND_LEGGINGS
+    - DIAMOND_BOOTS
+    - CHAINMAIL_HELMET
+    - CHAINMAIL_CHESTPLATE
+    - CHAINMAIL_LEGGINGS
+    - CHAINMAIL_BOOTS
+    - IRON_HELMET
+    - IRON_CHESTPLATE
+    - IRON_LEGGINGS
+    - IRON_BOOTS
+    - NETHERITE_HELMET
+    - NETHERITE_CHESTPLATE
+    - NETHERITE_LEGGINGS
+    - NETHERITE_BOOTS
+  weapons:
+    - WOODEN_SWORD
+    - STONE_SWORD
+    - IRON_SWORD
+    - GOLDEN_SWORD
+    - DIAMOND_SWORD
+    - NETHERITE_SWORD
+    - WOODEN_AXE
+    - STONE_AXE
+    - IRON_AXE
+    - GOLDEN_AXE
+    - DIAMOND_AXE
+    - NETHERITE_AXE
+    - BOW
+    - TRIDENT
+    - CROSSBOW
+  tools:
+    - WOODEN_PICKAXE
+    - WOODEN_AXE
+    - WOODEN_SHOVEL
+    - WOODEN_HOE
+    - GOLDEN_PICKAXE
+    - GOLDEN_AXE
+    - GOLDEN_SHOVEL
+    - GOLDEN_HOE
+    - STONE_SHOVEL
+    - STONE_PICKAXE
+    - STONE_AXE
+    - STONE_HOE
+    - IRON_SHOVEL
+    - IRON_PICKAXE
+    - IRON_AXE
+    - IRON_HOE
+    - DIAMOND_SHOVEL
+    - DIAMOND_PICKAXE
+    - DIAMOND_AXE
+    - DIAMOND_HOE
+    - NETHERITE_SHOVEL
+    - NETHERITE_PICKAXE
+    - NETHERITE_AXE
+    - NETHERITE_HOE
+  potions:
+    - POTION
+    - SPLASH_POTION
+    - LINGERING_POTION
+
