@@ -29,6 +29,28 @@ expired_item_info: # Информация об истекшем предмете
   - "§r§eИстек в: §6%item_expire_date%"
   - "§8------------------"
 
+sell_item_info: # Информация о проданном предмете
+  - "§r"
+  - "§8------------------"
+  - "§r§eЦена: §6%item_price%"
+  - "§r§eЦена за штуку: §6%one_item_price%"
+  - "§r§eПродавец: §6%item_seller%"
+  - "§r§eПокупатель: §6%item_buyer%"
+  - "§r§eБыл выставлен в: §6%item_expire_date%"
+  - "§r§eБыл продан: §6%item_buy_date%"
+  - "§8------------------"
+
+buy_item_info: # Информация о проданном предмете
+  - "§r"
+  - "§8------------------"
+  - "§r§eЦена: §6%item_price%"
+  - "§r§eЦена за штуку: §6%one_item_price%"
+  - "§r§eПродавец: §6%item_seller%"
+  - "§r§eПокупатель: §6%item_buyer%"
+  - "§r§eБыл выставлен в: §6%item_expire_date%"
+  - "§r§eБыл куплен: §6%item_buy_date%"
+  - "§8------------------"
+
 categories:
   armor:
     - LEATHER_HELMET

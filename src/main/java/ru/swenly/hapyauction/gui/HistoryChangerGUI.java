@@ -36,7 +36,11 @@ public class HistoryChangerGUI implements Listener {
             Inventory inventory;
             inventory = Bukkit.createInventory(null, 9, "История слотов");
 
+            inventory.setItem(2, createGuiItem(Material.IRON_INGOT, 1, "§aПроданные слоты", "§eСлоты, которые вы продали"));
+
             inventory.setItem(4, createGuiItem(Material.CLOCK, 1, "§aИстекшие слоты", "§eСлоты, которые вы выставили,", "§eно их срок продажи истек"));
+
+            inventory.setItem(6, createGuiItem(Material.GOLD_INGOT, 1, "§aКупленные слоты", "§eСлоты, которые вы купили"));
 
             invMap.put(player.getName(), inventory);
         } catch (Exception exception) {
@@ -77,9 +81,15 @@ public class HistoryChangerGUI implements Listener {
         if (!e.getView().getTitle().equals("История слотов")) return;
         e.setCancelled(true);
 
-        if (e.getRawSlot() == 4) {
+        if (e.getRawSlot() == 2) {
+            SalesHistoryGUI.CreateGUI(player);
+            SalesHistoryGUI.openInventory(player);
+        } else if (e.getRawSlot() == 4) {
             ExpiredHistoryGUI.CreateGUI(player);
             ExpiredHistoryGUI.openInventory(player);
+        } else if (e.getRawSlot() == 6) {
+            PurchasesHistoryGUI.CreateGUI(player);
+            PurchasesHistoryGUI.openInventory(player);
         }
     }
 

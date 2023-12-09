@@ -175,7 +175,6 @@ public class AuctionUtils {
             exception.printStackTrace();
         }
 
-
         try {
             PlacedHolders.addPlaceholder("%item_name%", itemInHand.getType().name().toUpperCase());
             PlacedHolders.addPlaceholder("%item_amount%", itemInHand.getAmount());
@@ -316,6 +315,7 @@ public class AuctionUtils {
 
             if (!cancelSell) {
                 Economy.subtract(player.getUniqueId(), new BigDecimal(price));
+
                 try {
                     Economy.add(offlineSeller.getName(), new BigDecimal(price));
                 }
@@ -490,6 +490,171 @@ public class AuctionUtils {
             catch (Exception exception) {
                 exception.printStackTrace();
             }
+
+            if (!(offlineSeller.getName().equals(player.getName()))) {
+                itemData.set("Buyer", player.getName());
+                itemData.set("Buy_Timestamp", System.currentTimeMillis());
+
+                if (oneItem) {
+                    itemData.set("Price", price);
+
+                    ItemStack newItemStack = new ItemStack(itemStack);
+                    newItemStack.setAmount(1);
+
+                    itemData.set("Item", newItemStack);
+                }
+
+                OfflinePlayer itemBuyer = (OfflinePlayer) player;
+                OfflinePlayer itemSeller = Bukkit.getOfflinePlayer(itemData.get("Seller").toString());
+
+                File sales_file = new File(plugin_path + "/history/sales/" + itemSeller.getName() + "/all_items.yml");
+
+                // Sales
+
+                try {
+                    if (!sales_file.exists()) {
+                        sales_file.getParentFile().mkdir();
+                        sales_file.createNewFile();
+
+                        for (String newCategory : HapyAuction.categoriesMap.values()) {
+                            File category_file = new File(plugin_path + "/history/sales/" + itemSeller.getName() + "/" + newCategory + ".yml");
+
+                            try {
+                                if (!category_file.exists()) {
+                                    category_file.getParentFile().mkdir();
+                                    category_file.createNewFile();
+                                }
+                            } catch (Exception exception) {
+                                System.out.println("Can't create " + newCategory + ".yml");
+                            }
+
+                            YamlConfiguration categoryYamlConfiguration = new YamlConfiguration();
+                            categoryYamlConfiguration.createSection("Items");
+
+                            FileWriter fileWriter = new FileWriter(category_file);
+                            BufferedWriter bw = new BufferedWriter(fileWriter);
+                            bw.write(categoryYamlConfiguration.saveToString());
+                            bw.flush();
+                            bw.close();
+                        }
+                    }
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+
+                try {
+                    yamlConfiguration.set("Items", items_sorted);
+                    yamlConfiguration.save(file);
+
+                    File all_items_expired = new File(plugin_path + "/history/sales/" + itemSeller.getName() + "/all_items.yml");
+
+                    yamlConfiguration = new YamlConfiguration();
+                    yamlConfiguration.load(all_items_expired);
+
+                    items = yamlConfiguration.getConfigurationSection("Items");
+
+                    String strIndex = String.valueOf(items.getKeys(false).size() + 1);
+                    items.set(strIndex, itemData);
+
+                    yamlConfiguration.set("Items", items);
+                    yamlConfiguration.save(all_items_expired);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    return;
+                }
+
+                try {
+                    file = new File(plugin_path + "/history/sales/" + itemSeller.getName() + "/" + HapyAuction.categoriesMap.get(AuctionUtils.getCategory(itemStack)) + ".yml");
+                    yamlConfiguration = new YamlConfiguration();
+                    yamlConfiguration.load(file);
+
+                    items = yamlConfiguration.getConfigurationSection("Items");
+
+                    String strIndex = String.valueOf(items.getKeys(false).size() + 1);
+                    items.set(strIndex, itemData);
+
+                    yamlConfiguration.set("Items", items);
+                    yamlConfiguration.save(file);
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+
+                // Buys
+
+                File buys_file = new File(plugin_path + "/history/purchases/" + itemSeller.getName() + "/all_items.yml");
+
+                try {
+                    if (!buys_file.exists()) {
+                        buys_file.getParentFile().mkdir();
+                        buys_file.createNewFile();
+
+                        for (String newCategory : HapyAuction.categoriesMap.values()) {
+                            File category_file = new File(plugin_path + "/history/purchases/" + itemBuyer.getName() + "/" + newCategory + ".yml");
+
+                            try {
+                                if (!category_file.exists()) {
+                                    category_file.getParentFile().mkdir();
+                                    category_file.createNewFile();
+                                }
+                            } catch (Exception exception) {
+                                System.out.println("Can't create " + newCategory + ".yml");
+                            }
+
+                            YamlConfiguration categoryYamlConfiguration = new YamlConfiguration();
+                            categoryYamlConfiguration.createSection("Items");
+
+                            FileWriter fileWriter = new FileWriter(category_file);
+                            BufferedWriter bw = new BufferedWriter(fileWriter);
+                            bw.write(categoryYamlConfiguration.saveToString());
+                            bw.flush();
+                            bw.close();
+                        }
+                    }
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+
+                try {
+                    yamlConfiguration.set("Items", items_sorted);
+                    yamlConfiguration.save(file);
+
+                    File all_items_expired = new File(plugin_path + "/history/purchases/" + itemBuyer.getName() + "/all_items.yml");
+
+                    yamlConfiguration = new YamlConfiguration();
+                    yamlConfiguration.load(all_items_expired);
+
+                    items = yamlConfiguration.getConfigurationSection("Items");
+
+                    String strIndex = String.valueOf(items.getKeys(false).size() + 1);
+                    items.set(strIndex, itemData);
+
+                    yamlConfiguration.set("Items", items);
+                    yamlConfiguration.save(all_items_expired);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    return;
+                }
+
+                try {
+                    file = new File(plugin_path + "/history/purchases/" + itemBuyer.getName() + "/" + HapyAuction.categoriesMap.get(AuctionUtils.getCategory(itemStack)) + ".yml");
+                    yamlConfiguration = new YamlConfiguration();
+                    yamlConfiguration.load(file);
+
+                    items = yamlConfiguration.getConfigurationSection("Items");
+
+                    String strIndex = String.valueOf(items.getKeys(false).size() + 1);
+                    items.set(strIndex, itemData);
+
+                    yamlConfiguration.set("Items", items);
+                    yamlConfiguration.save(file);
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
         }
         catch (Exception exception) {
             exception.printStackTrace();
@@ -559,6 +724,50 @@ public class AuctionUtils {
                 ConfigurationSection configurationSection = (ConfigurationSection) entry.getValue();
 
                 if (configurationSection.getString("Seller").equals(player.getName())) {
+                    allSales.put(entry.getKey(), configurationSection);
+                }
+            }
+        } catch (Exception ignored) {}
+
+        return allSales;
+    }
+
+    public static Map<String, Object> getPlayerSalesItems(OfflinePlayer player, String category) {
+        Map<String, Object> allSales = new LinkedHashMap<>();
+
+        try {
+            File file = new File(plugin_path + "/history/sales/" + player.getName() + "/" + category + ".yml");
+            YamlConfiguration yamlConfiguration = new YamlConfiguration();
+            yamlConfiguration.load(file);
+
+            Map<String, Object> items = yamlConfiguration.getConfigurationSection("Items").getValues(false);
+
+            for (Map.Entry<String, Object> entry : items.entrySet()) {
+                ConfigurationSection configurationSection = (ConfigurationSection) entry.getValue();
+
+                if (configurationSection.getString("Seller").equals(player.getName())) {
+                    allSales.put(entry.getKey(), configurationSection);
+                }
+            }
+        } catch (Exception ignored) {}
+
+        return allSales;
+    }
+
+    public static Map<String, Object> getPlayerBuysItems(OfflinePlayer player, String category) {
+        Map<String, Object> allSales = new LinkedHashMap<>();
+
+        try {
+            File file = new File(plugin_path + "/history/purchases/" + player.getName() + "/" + category + ".yml");
+            YamlConfiguration yamlConfiguration = new YamlConfiguration();
+            yamlConfiguration.load(file);
+
+            Map<String, Object> items = yamlConfiguration.getConfigurationSection("Items").getValues(false);
+
+            for (Map.Entry<String, Object> entry : items.entrySet()) {
+                ConfigurationSection configurationSection = (ConfigurationSection) entry.getValue();
+
+                if (configurationSection.getString("Buyer").equals(player.getName())) {
                     allSales.put(entry.getKey(), configurationSection);
                 }
             }

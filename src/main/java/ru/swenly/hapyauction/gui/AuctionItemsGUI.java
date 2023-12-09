@@ -253,7 +253,7 @@ public class AuctionItemsGUI implements Listener {
                 }
                 catch (Exception ignored) { }
 
-                String one_item_price = (itemInfo.getInt("Price") / (itemStack.getAmount() + 0.0)) + "";
+                String one_item_price = (itemInfo.getDouble("Price") / (itemStack.getAmount() + 0.0)) + "";
 
                 try {
                     String[] priceSplit = one_item_price.split("\\.", -1);
@@ -407,8 +407,8 @@ public class AuctionItemsGUI implements Listener {
                 PlayerSalesGUI.openInventory(p);
             }
             else if (e.getRawSlot() == 46) {
-                ExpiredHistoryGUI.CreateGUI(p);
-                ExpiredHistoryGUI.openInventory(p);
+                HistoryChangerGUI.CreateGUI(p);
+                HistoryChangerGUI.openInventory(p);
             }
         }
 

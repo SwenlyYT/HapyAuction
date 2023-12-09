@@ -40,6 +40,8 @@ public final class HapyAuction extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerSalesGUI(), this);
         Bukkit.getPluginManager().registerEvents(new HistoryChangerGUI(), this);
         Bukkit.getPluginManager().registerEvents(new ExpiredHistoryGUI(), this);
+        Bukkit.getPluginManager().registerEvents(new SalesHistoryGUI(), this);
+        Bukkit.getPluginManager().registerEvents(new PurchasesHistoryGUI(), this);
 
         // Tasks
         expireTask = new CheckingExpireItemTask(this).runTaskTimer(this, 0L, 20L * 600); // 20L = 1 sec
@@ -92,6 +94,36 @@ public final class HapyAuction extends JavaPlugin {
                 Files.createDirectories(Paths.get(plugin_path + "/expired/"));
             } catch (Exception exception) {
                 System.out.println("Can't create expired folder");
+            }
+        }
+
+        File history_folder = new File(plugin_path + "/history/");
+
+        if (!history_folder.exists()) {
+            try {
+                Files.createDirectories(Paths.get(plugin_path + "/history/"));
+            } catch (Exception exception) {
+                System.out.println("Can't create expired folder");
+            }
+        }
+
+        File sales_folder = new File(plugin_path + "/history/sales/");
+
+        if (!sales_folder.exists()) {
+            try {
+                Files.createDirectories(Paths.get(plugin_path + "/history/sales/"));
+            } catch (Exception exception) {
+                System.out.println("Can't create sales folder");
+            }
+        }
+
+        File buys_folder = new File(plugin_path + "/history/purchases/");
+
+        if (!buys_folder.exists()) {
+            try {
+                Files.createDirectories(Paths.get(plugin_path + "/history/purchases/"));
+            } catch (Exception exception) {
+                System.out.println("Can't create buys folder");
             }
         }
     }
